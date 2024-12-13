@@ -44,7 +44,36 @@ class Ball:
         if self.x_and_y[1] <= 0:
             self.way[1] = 2
         if self.x_and_y[1] + self.side >= 600:
-            self.way[1] = -2
+            return True
         if self.rect.colliderect(platforma.rect):
             self.way[1] = -2
         self.rect = pygame.Rect(self.x_and_y[0], self.x_and_y[1], self.side, self.side)
+    def colide_with_block(self,kub):
+        if self.rect.colliderect(kub.rect):
+            if self.x_and_y[0] +5 < kub.x + 30:
+                self.way[0] = -2
+            if self.x_and_y[0] +5 > kub.x + 30:
+                self.way[0] = 2
+            if self.x_and_y[1] +5 < kub.y + 15:
+                self.way[1] = -2
+            if self.x_and_y[1] +5 > kub.y + 15:
+                self.way[1] = 2
+
+
+class Kubic:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+        self.rect = pygame.Rect(self.x,self.y,60,30)
+        self.color = (255,255,255)
+    def display(self,screen):
+        pygame.draw.rect(screen,self.color, self.rect)
+
+    def dead_or_live(self,ball):
+        if self.rect.colliderect(ball.rect):
+            self.color = (0,0,0)
+            return True
+
+
+
+
