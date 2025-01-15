@@ -26,14 +26,15 @@ class Platforma:
 
 class Ball:
     def __init__(self):
+        self.explosion_pic = pygame.image.load('ball.png')
         self.x_and_y = [400, 300]
         self.side = 10
         self.way = [2,-2 ]
         self.rect = pygame.Rect(self.x_and_y[0], self.x_and_y[1], self.side, self.side)
 
     def display(self, screen):
-        pygame.draw.rect(screen, (255, 255, 255), self.rect)
-
+        # pygame.draw.rect(screen, (255, 255, 255), self.rect)
+        screen.blit(self.explosion_pic, self.rect)
     def move(self, platforma):
         self.x_and_y[0] += self.way[0]
         self.x_and_y[1] += self.way[1]
@@ -66,6 +67,8 @@ class Kubic:
         self.y = y
         self.rect = pygame.Rect(self.x,self.y,60,30)
         self.color = (255,255,255)
+        self.explosion = []
+
     def display(self,screen):
         pygame.draw.rect(screen,self.color, self.rect)
 
@@ -73,6 +76,8 @@ class Kubic:
         if self.rect.colliderect(ball.rect):
             self.color = (0,0,0)
             return True
+    def explode(self):
+
 
 
 
