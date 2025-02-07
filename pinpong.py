@@ -13,7 +13,7 @@ b = Ball()
 #           Kubic(60, 100), Kubic(140, 100), Kubic(220, 100), Kubic(300, 100), Kubic(380, 100), Kubic(460, 100),
 #           Kubic(540, 100), Kubic(620, 100)]
 
-kubiki = [Kubic(x + (50 if (y//70) % 2 == 0 else 0), y) for x in range(0, 800, 70) for y in range(0, 400, 40)]
+kubiki = [Kubic(x + (50 if (y // 70) % 2 == 0 else 0), y) for x in range(0, 800, 70) for y in range(0, 400, 40)]
 
 running = True
 while running:
@@ -24,14 +24,16 @@ while running:
     screen.fill((0, 0, 0))
     p.display(screen)
     b.display(screen)
+    counter = 0
     if b.move(p):
         break
     clock.tick(100)
     for kub in kubiki:
         kub.display(screen)
-        kub.dead_or_live(b)
-        if kub.dead_or_live(b):
-            b.colide_with_block(kub)
+        b.colide_with_block(kub)
+
+
+        if kub.dead_or_live(b,screen):
             kubiki.remove(kub)
     if pygame.key.get_pressed()[pygame.K_a]:
         p.move_left()
